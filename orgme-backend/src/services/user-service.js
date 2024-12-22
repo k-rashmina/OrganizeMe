@@ -2,6 +2,7 @@ const {
   createUser,
   getUser,
   getUserCredentials,
+  getUserByResetToken,
   updateUserDetails,
 } = require("../data-access/user-db");
 const bcrypt = require("bcrypt");
@@ -10,16 +11,19 @@ const crypto = require("crypto");
 const ConvertTimeToUTC = require("../utils/dateTimeUtil");
 const sendEmail = require("../utils/email");
 
-const createUserService = async (user) => {
+const createPasswordHash = async (password) => {
   const saltRounds = 10;
 
+  return await bcrypt.hash(password, saltRounds);
+};
+
+const createUserService = async (user) => {
   try {
     const existingUser = await getUserCredentials(user.email);
 
     if (existingUser) return 409;
 
-    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
-    user.password = hashedPassword;
+    user.password = await createPasswordHash(user.password);
 
     return await createUser(user);
   } catch (e) {
@@ -29,14 +33,15 @@ const createUserService = async (user) => {
 
 const userLoginService = async (userCredentails) => {
   try {
-    const { _id, email, password } = await getUserCredentials(
-      userCredentails.userEmail
-    );
-    if (!email) {
+    const user = await getUserCredentials(userCredentails.userEmail);
+
+    if (!user) {
       return 400;
     }
 
-    if (await bcrypt.compare(userCredentails.userPassword, password)) {
+    const { _id, email } = user;
+
+    if (await bcrypt.compare(userCredentails.userPassword, user.password)) {
       const accessToken = jwt.sign(
         { _id, email },
         process.env.ACCESS_TOKEN_SECRET
@@ -87,7 +92,7 @@ const forgotPasswordService = async (user, resetUrl) => {
           <p>If you have any questions or need further assistance, feel free to contact our support team at <strong>${process.env.EMAIL_USER}</strong>.</p>
           <p>Thank you,<br><strong>The OrganizeMe Team</strong></p>
       `;
-    const subject = "Subject: Reset Your Password for OrganizeMe";
+    const subject = "Reset Your Password for OrganizeMe";
 
     await sendEmail({
       email: user.email,
@@ -104,8 +109,21 @@ const forgotPasswordService = async (user, resetUrl) => {
   }
 };
 
-const resetPasswordService = async (user) => {
+const resetPasswordService = async (token, passwords) => {
   try {
+    const encrptToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await getUserByResetToken(encrptToken);
+
+    if (!user) return 400;
+
+    if (passwords.pass !== passwords.confirmPass) return 409;
+
+    user.password = await createPasswordHash(passwords.pass);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await updateUserDetails(user);
+    return 200;
   } catch (e) {
     console.log(e.message);
   }

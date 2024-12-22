@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../models/user-model");
+const ConvertTimeToUTC = require("../utils/dateTimeUtil");
 
 //function for creating accounts for new users
 const createUser = async (user) => {
@@ -15,7 +16,7 @@ const createUser = async (user) => {
   }
 };
 
-//function for getting a user
+//function for getting a user by email
 const getUser = async (loggedUser) => {
   try {
     const user = await User.findOne({ email: loggedUser });
@@ -39,6 +40,18 @@ const getUserCredentials = async (userEmail) => {
   }
 };
 
+//function for getting a user by reset password token
+const getUserByResetToken = async (token) => {
+  try {
+    return await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: ConvertTimeToUTC(Date.now()) },
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 //function for getting a user credentials
 const updateUserDetails = async (user) => {
   try {
@@ -52,5 +65,6 @@ module.exports = {
   createUser,
   getUser,
   getUserCredentials,
+  getUserByResetToken,
   updateUserDetails,
 };

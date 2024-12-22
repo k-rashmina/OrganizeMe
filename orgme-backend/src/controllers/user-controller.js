@@ -104,6 +104,17 @@ const forgotPasswordController = async (req, res) => {
  */
 const resetPasswordController = async (req, res) => {
   try {
+    const status = await resetPasswordService(req.params.token, req.body);
+
+    if (status === 400)
+      res.status(status).json({ message: "Token invalid or has expired" });
+
+    if (status === 409)
+      res
+        .status(status)
+        .json({ message: "Password and confirm password does not match" });
+
+    res.status(status).json({ message: "Password reset successful" });
   } catch (e) {
     console.log("Error occurred in resetPasswordController: ", e);
     res.status(500).json({ message: "Error occurred" });
