@@ -22,6 +22,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   role: {
     type: String,
@@ -31,11 +32,9 @@ const userSchema = new Schema({
   },
   resetPasswordToken: {
     type: String,
-    required: false,
   },
   resetPasswordExpires: {
     type: Date,
-    required: false,
   },
   create_date: {
     type: Date,

@@ -18,7 +18,7 @@ const createUser = async (user) => {
 //function for getting a user
 const getUser = async (loggedUser) => {
   try {
-    const user = await User.findOne({ email: loggedUser.email });
+    const user = await User.findOne({ email: loggedUser });
 
     return user || null;
   } catch (err) {
@@ -29,9 +29,20 @@ const getUser = async (loggedUser) => {
 //function for getting a user credentials
 const getUserCredentials = async (userEmail) => {
   try {
-    const userCred = await User.findOne({ email: userEmail }, "email password");
+    const userCred = await User.findOne({ email: userEmail }, "email").select(
+      "+password"
+    );
 
     return userCred || null;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+//function for getting a user credentials
+const updateUserDetails = async (user) => {
+  try {
+    return await User.findOneAndUpdate(user);
   } catch (err) {
     console.log(err.message);
   }
@@ -41,4 +52,5 @@ module.exports = {
   createUser,
   getUser,
   getUserCredentials,
+  updateUserDetails,
 };

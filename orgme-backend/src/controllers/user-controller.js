@@ -2,6 +2,9 @@ const {
   createUserService,
   userLoginService,
   getUserService,
+  forgotPasswordService,
+  resetPasswordService,
+  updateUserService,
 } = require("../services/user-service");
 
 /**
@@ -13,7 +16,7 @@ const getUserController = async (req, res) => {
   try {
     const loggedUser = req.user;
 
-    res.json(await getUserService(loggedUser));
+    res.json(await getUserService(loggedUser.email));
   } catch (e) {
     console.log("Error occurred in getUserController: ", e);
     res.status(500).send("Error occurred");
@@ -31,7 +34,7 @@ const createUserController = async (req, res) => {
     const result = await createUserService(user);
 
     if (result === 409) {
-      res.status(result).json({ message: "User Already Exists" });
+      res.status(result).json({ message: "User already exists" });
       return;
     }
 
@@ -50,9 +53,8 @@ const createUserController = async (req, res) => {
 const userLogin = async (req, res) => {
   try {
     const token = await userLoginService(req.body);
-
     if (token === 400 || token === 401) {
-      res.status(token).json({ message: "Invalid Credentials" });
+      res.status(token).json({ message: "Invalid credentials" });
       return;
     }
 
@@ -68,4 +70,68 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { getUserController, createUserController, userLogin };
+/**
+ * Controller method for forgot password.
+ * @param {*} req
+ * @param {*} res
+ */
+const forgotPasswordController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await getUserService(email);
+
+    if (!user)
+      return res
+        .status(400)
+        .json({ message: "No user account for the give email address" });
+
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/api/user/resetPassword/`;
+
+    await forgotPasswordService(user, resetUrl);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log("Error occurred in forgotPasswordController: ", e);
+    res.status(500).json({ message: "Error occurred" });
+  }
+};
+
+/**
+ * Controller method for reset password.
+ * @param {*} req
+ * @param {*} res
+ */
+const resetPasswordController = async (req, res) => {
+  try {
+  } catch (e) {
+    console.log("Error occurred in resetPasswordController: ", e);
+    res.status(500).json({ message: "Error occurred" });
+  }
+};
+
+/**
+ * Controller method for updating user info.
+ * @param {*} req
+ * @param {*} res
+ */
+const updateUserController = async (req, res) => {
+  try {
+    const user = req.body;
+
+    await updateUserService(user);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log("Error occurred in updateUserController: ", e);
+    res.status(500).json({ message: "Error occurred" });
+  }
+};
+
+module.exports = {
+  getUserController,
+  createUserController,
+  userLogin,
+  forgotPasswordController,
+  resetPasswordController,
+  updateUserController,
+};
