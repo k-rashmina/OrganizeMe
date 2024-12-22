@@ -1,4 +1,9 @@
-const { createTaskService } = require("../services/task-service");
+const {
+  createTaskService,
+  getAllTasksService,
+  updateTaskService,
+  deleteTaskService,
+} = require("../services/task-service");
 
 /**
  * Controller method for get tasks list.
@@ -7,7 +12,14 @@ const { createTaskService } = require("../services/task-service");
  */
 const getAllTasksController = async (req, res) => {
   try {
-    res.send("This is the tasks controller");
+    const userID = req.user._id;
+    const searchParams = {
+      sortBy: req.query.sortBy,
+      sort: req.query.sort,
+      priority: req.query.priority,
+    };
+
+    res.json(await getAllTasksService(userID, searchParams));
   } catch (e) {
     console.log("Error occurred in getAllTasksController: ", e);
     res.status(500).send("Error occurred");
@@ -31,4 +43,43 @@ const createTaskController = async (req, res) => {
   }
 };
 
-module.exports = { getAllTasksController, createTaskController };
+/**
+ * Controller method for updating task.
+ * @param {*} req
+ * @param {*} res
+ */
+const updateTaskController = async (req, res) => {
+  try {
+    const task = req.body;
+    const updatedTask = await updateTaskService(task);
+
+    res.json(updatedTask);
+  } catch (e) {
+    console.log("Error occurred in updateTaskController: ", e);
+    res.status(500).send("Error occurred");
+  }
+};
+
+/**
+ * Controller method for deleting task.
+ * @param {*} req
+ * @param {*} res
+ */
+const deleteTaskController = async (req, res) => {
+  try {
+    const taskId = req.params.taskId;
+    await deleteTaskService(taskId);
+
+    res.sendStatus(200);
+  } catch (e) {
+    console.log("Error occurred in deleteTaskController: ", e);
+    res.status(500).send("Error occurred");
+  }
+};
+
+module.exports = {
+  getAllTasksController,
+  createTaskController,
+  updateTaskController,
+  deleteTaskController,
+};

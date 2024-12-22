@@ -11,12 +11,22 @@ const crypto = require("crypto");
 const ConvertTimeToUTC = require("../utils/dateTimeUtil");
 const sendEmail = require("../utils/email");
 
+/**
+ * function for creating an encrypted password using bcrypt
+ * @param {*} password
+ * @returns
+ */
 const createPasswordHash = async (password) => {
   const saltRounds = 10;
 
   return await bcrypt.hash(password, saltRounds);
 };
 
+/**
+ * Service method for registering a user
+ * @param {*} user
+ * @returns
+ */
 const createUserService = async (user) => {
   try {
     const existingUser = await getUserCredentials(user.email);
@@ -31,6 +41,11 @@ const createUserService = async (user) => {
   }
 };
 
+/**
+ * Service method for logging in a user
+ * @param {*} userCredentails
+ * @returns
+ */
 const userLoginService = async (userCredentails) => {
   try {
     const user = await getUserCredentials(userCredentails.userEmail);
@@ -56,6 +71,11 @@ const userLoginService = async (userCredentails) => {
   }
 };
 
+/**
+ * Service method for getting the logged user
+ * @param {*} loggedUser
+ * @returns
+ */
 const getUserService = async (loggedUser) => {
   try {
     const user = await getUser(loggedUser);
@@ -67,6 +87,12 @@ const getUserService = async (loggedUser) => {
   }
 };
 
+/**
+ * Service method for handling forgot password feature
+ * @param {*} user
+ * @param {*} resetUrl
+ * @returns
+ */
 const forgotPasswordService = async (user, resetUrl) => {
   try {
     const resetToken = crypto.randomBytes(32).toString("hex");
@@ -109,6 +135,12 @@ const forgotPasswordService = async (user, resetUrl) => {
   }
 };
 
+/**
+ * Service method for resetting the password
+ * @param {*} token
+ * @param {*} passwords
+ * @returns
+ */
 const resetPasswordService = async (token, passwords) => {
   try {
     const encrptToken = crypto.createHash("sha256").update(token).digest("hex");
@@ -129,6 +161,11 @@ const resetPasswordService = async (token, passwords) => {
   }
 };
 
+/**
+ * Service method for updating a user
+ * @param {*} user
+ * @returns
+ */
 const updateUserService = async (user) => {
   try {
     return await updateUserDetails(user);
