@@ -9,6 +9,7 @@ body {
   font-family: poppins;
   margin: 0px;
   max-height: 100%;
+  overflow-x: hidden;
 }
 
 @font-face {
@@ -18,7 +19,8 @@ body {
 
 /* Registration and Login Page Styles */
 .signup-container,
-.login-container {
+.login-container,
+.forgot-password-container {
   background-color: var(--primary);
   /* background-image: url(./assets/bg-2.jpg); */
   background-size: cover;
@@ -30,7 +32,8 @@ body {
 }
 
 .signup-form,
-.login-form {
+.login-form,
+.forgot-password-form {
   padding: 30px;
   border-radius: 32px;
   background-color: var(--secondary);
@@ -41,21 +44,24 @@ body {
 }
 
 .signup-form h2,
-.login-form h2 {
+.login-form h2,
+.forgot-password-form h2 {
   margin-bottom: 10px;
   margin-top: 10px;
   font-size: 32px;
 }
 
 .signup-form p,
-.login-form p {
+.login-form p,
+.forgot-password-form p {
   margin-bottom: 20px;
   font-size: 18px;
   color: var(--accent2);
 }
 
 .signup-form input,
-.login-form input {
+.login-form input,
+.forgot-password-form input {
   width: 95%;
   height: 5vh;
   padding: 10px;
@@ -68,12 +74,14 @@ body {
 }
 
 .signup-form input::placeholder,
-.login-form input::placeholder {
+.login-form input::placeholder,
+.forgot-password-form::placeholder {
   color: rgba(205, 205, 224, 0.4);
 }
 
 .signup-form input:focus,
-.login-form input:focus {
+.login-form input:focus,
+.forgot-password-form input:focus {
   outline: none;
   border: 1px solid var(--accent1);
 }
@@ -96,7 +104,8 @@ body {
 }
 
 .signup-form p.form-error-msg,
-.login-form p.form-error-msg {
+.login-form p.form-error-msg,
+.forgot-password-form p.form-error-msg {
   text-align: left;
   color: tomato;
   font-size: 14px;
@@ -108,7 +117,22 @@ body {
   width: 100%;
   height: 10vh;
   padding: 12px;
-  margin-top: 10px;
+  margin-top: 20px;
+  border: 2px solid var(--accent1);
+  border-radius: 10px;
+  background-color: var(--accent1);
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.forgot-password-form button {
+  width: 100%;
+  height: 10vh;
+  padding: 12px;
+  margin-top: 30px;
   border: 2px solid var(--accent1);
   border-radius: 10px;
   background-color: var(--accent1);
@@ -120,10 +144,205 @@ body {
 }
 
 .signup-form button:hover,
-.login-form button:hover {
+.login-form button:hover,
+.forgot-password-form button:hover {
   background-color: var(--secondary);
   border: 2px solid var(--accent1);
   color: var(--accent1);
 }
 
-/* Login Page Styles */
+/* Header Component Styles */
+
+.header-div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 50px;
+  background-color: var(--primary);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--accent2);
+}
+
+.logo-div img {
+  width: 60px;
+  margin-left: 20px;
+}
+
+.header-nav-div {
+  margin-right: 30px;
+  margin-top: 8px;
+}
+
+.header-nav-div button {
+  margin-left: 10px;
+}
+
+/* Dashboard Page Styles */
+
+.dashboard-container {
+  background-color: var(--primary);
+  min-height: 100vh;
+  /* padding: 0px 20px; */
+  color: var(--accent2);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.header-icon {
+  width: 100px;
+  height: 100px;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent2);
+}
+
+.task-table-wrapper {
+  margin-top: 20px;
+}
+
+/* Task Table Component Styles */
+.task-list-container {
+  position: absolute;
+  /* bottom: 0px; */
+  left: 50px;
+  right: 50px;
+}
+
+.task-list-body {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.task-list-body::-webkit-scrollbar {
+  display: none;
+}
+
+.task-list-body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.task-list-header,
+.task-list-row {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+}
+
+.task-list-header {
+  background-color: var(--primary);
+  color: var(--accent1);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.task-list-row {
+  background-color: var(--secondary);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 14px;
+  box-shadow: 0px 16px 40px 2px rgba(0, 0, 0, 0.2);
+}
+
+.task-list-item {
+  color: var(--accent2);
+  padding: 10px;
+}
+
+.task-list-row input[type="checkbox"] {
+  transform: scale(1.5);
+  margin: auto;
+}
+
+.edit-button {
+  background-image: url(./assets/pencil.png);
+  background-size: cover;
+  height: 28px;
+  width: 28px;
+  background-color: var(--secondary);
+  border: none;
+  margin-left: 20%;
+}
+
+.delete-button {
+  background-image: url(./assets/trash.png);
+  background-size: cover;
+  height: 28px;
+  width: 28px;
+  background-color: var(--secondary);
+  border: none;
+  margin-left: 20%;
+}
+
+/* Filter Form Component Styles */
+.filter-form {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--secondary);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+  max-width: 70%;
+  margin-top: 60px;
+  margin-bottom: 5px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.filter-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.filter-form-group label {
+  color: var(--accent2);
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.filter-form-group select {
+  padding: 10px;
+  border: 1px solid var(--accent2);
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--accent1);
+}
+
+.filter-form-group select:focus {
+  outline: none;
+  border: 1px solid var(--accent1);
+}
+
+.filter-form-group select::placeholder {
+  color: var(--accent2);
+}
+
+.filter-form-button {
+  padding: 10px 20px;
+  background-color: var(--accent1);
+  color: var(--primary);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-form-button:hover {
+  background-color: var(--secondary);
+  color: var(--accent1);
+  border: 1px solid var(--accent1);
+}

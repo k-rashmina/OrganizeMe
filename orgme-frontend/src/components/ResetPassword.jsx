@@ -1,14 +1,14 @@
-import React, { useRef } from "react";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-export default function Register() {
+export default function ResetPassword() {
+  const { token } = useParams();
+  // console.log("token", token);
+
   const [submitStatus, setSubmitStatus] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
     confirmPass: "",
@@ -22,26 +22,6 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  //function to validate email
-  const validateEmail = (e) => {
-    let errorMsg = undefined;
-    const emailPattern = /^[^\s@A-Z]+@[^\s@A-Z]+\.[^\s@A-Z]+$/;
-
-    if (!e.target.value) {
-      //check if there is no email address
-      errorMsg = "What! you don't have an email? :/";
-    } else if (!emailPattern.test(e.target.value)) {
-      //check if the email address is invalid
-      errorMsg = "Your email address is fake :(";
-    }
-    setErrors((prevState) => {
-      return {
-        ...prevState,
-        emailError: errorMsg,
-      };
-    });
-  };
-
   //function to validate password
   const validatePassword = (e) => {
     const password = e.target.value;
@@ -49,12 +29,12 @@ export default function Register() {
     const passPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     if (!password) {
-      errorMsg = "Hey!, you don't want to secure your account? :|";
+      errorMsg = "Did you somehow remeber your old password? :)";
     } else if (password.length < 8) {
       errorMsg = "8 or more characters, no exceptions! >(";
     } else if (!passPattern.test(password)) {
       errorMsg =
-        "Spice up your password, add at least one letter and one number";
+        "Spice up your password, add at least one letter and one number ;)";
     }
     setErrors((prevState) => {
       return {
@@ -82,7 +62,6 @@ export default function Register() {
     });
   };
 
-  //function to handle form input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -90,10 +69,9 @@ export default function Register() {
     });
   };
 
-  //function to handle submitting of form
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(errors);
+    console.log(formData);
 
     if (!errors.emailError && !errors.passError && !errors.confirmPass) {
       setSubmitStatus(true);
@@ -103,68 +81,30 @@ export default function Register() {
   useEffect(() => {
     if (submitStatus) {
       axios
-        .post("http://localhost:5000/api/user/register", {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-          role: "user",
-          resetPasswordToken: null,
-          resetPasswordExpires: null,
+        .patch(`http://localhost:5000/api/user/resetPassword/${token}`, {
+          pass: formData.password,
+          confirmPass: formData.confirmPass,
         })
         .then((res) => {
-          alert("Account Successfully Created!");
+          alert(res.data.message);
           navigate("/login");
         })
         .catch((err) => {
-          err.status === 409 && alert(err.response.data.message);
+          alert(err.response.data.message);
         })
         .finally(() => setSubmitStatus(false));
     }
   }, [submitStatus]);
 
-  // console.log(errors.emailError);
   return (
-    <div className="signup-container">
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <h2>User Registration</h2>
-        <p>
-          Ready to conquer your day, one task at a time?
-          <br />
-          Let's get started!
-        </p>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          required={true}
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={formData.lastName}
-          required={true}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          value={formData.email}
-          required={true}
-          onChange={handleChange}
-          onBlur={validateEmail}
-        />
-        {errors.emailError && (
-          <p className="form-error-msg">{errors.emailError}</p>
-        )}
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Reset your password</h2>
+        <p>Enter a new password for the account</p>
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Enter New Password"
           value={formData.password}
           required={true}
           onChange={handleChange}
@@ -185,9 +125,10 @@ export default function Register() {
         {errors.confirmPass && (
           <p className="form-error-msg">{errors.confirmPass}</p>
         )}
+
         <div className="signup-options-div">
           <p>
-            Already have an account?{" "}
+            Remembered your password?{" "}
             <span>
               <Link className="login-link" to={"/login"}>
                 Login
@@ -195,7 +136,8 @@ export default function Register() {
             </span>
           </p>
         </div>
-        <button type="submit">Sign up</button>
+
+        <button type="submit">Reset Password</button>
       </form>
     </div>
   );

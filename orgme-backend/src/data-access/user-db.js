@@ -55,7 +55,7 @@ const getUserByResetToken = async (token) => {
 //function for getting a user credentials
 const updateUserDetails = async (user) => {
   try {
-    return await User.findOneAndUpdate(user);
+    return await User.findByIdAndUpdate(user._id, user);
   } catch (err) {
     console.log(err.message);
   }

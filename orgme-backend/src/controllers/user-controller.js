@@ -7,6 +7,9 @@ const {
   updateUserService,
 } = require("../services/user-service");
 
+const frontendPort = 5173;
+const frontendlink = `http://localhost:${frontendPort}/resetPassword/`;
+
 /**
  * Controller method for get user info.
  * @param {*} req
@@ -85,9 +88,7 @@ const forgotPasswordController = async (req, res) => {
         .status(400)
         .json({ message: "No user account for the give email address" });
 
-    const resetUrl = `${req.protocol}://${req.get(
-      "host"
-    )}/api/user/resetPassword/`;
+    const resetUrl = `${frontendlink}`;
 
     await forgotPasswordService(user, resetUrl);
     res.sendStatus(200);
@@ -107,14 +108,16 @@ const resetPasswordController = async (req, res) => {
     const status = await resetPasswordService(req.params.token, req.body);
 
     if (status === 400)
-      res.status(status).json({ message: "Token invalid or has expired" });
+      return res
+        .status(status)
+        .json({ message: "Token invalid or has expired" });
 
     if (status === 409)
-      res
+      return res
         .status(status)
         .json({ message: "Password and confirm password does not match" });
 
-    res.status(status).json({ message: "Password reset successful" });
+    return res.status(status).json({ message: "Password reset successful" });
   } catch (e) {
     console.log("Error occurred in resetPasswordController: ", e);
     res.status(500).json({ message: "Error occurred" });

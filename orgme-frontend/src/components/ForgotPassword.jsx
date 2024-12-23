@@ -3,11 +3,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function ForgotPassword() {
   const [submitStatus, setSubmitStatus] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
 
   const [errors, setErrors] = useState({
@@ -23,7 +22,7 @@ export default function Login() {
 
     if (!e.target.value) {
       //check if there is no email address
-      errorMsg = "No email, no access -.-";
+      errorMsg = "No email, no link -.-";
     } else if (!emailPattern.test(e.target.value)) {
       //check if the email address is invalid
       errorMsg = "Your email address is fake :(";
@@ -55,16 +54,14 @@ export default function Login() {
   useEffect(() => {
     if (submitStatus) {
       axios
-        .post("http://localhost:5000/api/user/login", {
-          userEmail: formData.email,
-          userPassword: formData.password,
+        .post("http://localhost:5000/api/user/forgotPassword", {
+          email: formData.email,
         })
         .then((res) => {
-          // console.log("accessToken", res.data.accessToken);
-          if (res.data.accessToken) {
-            localStorage.setItem("accessToken", res.data.accessToken);
-            navigate("/dashboard");
-          }
+          alert(
+            "An email with instructions will be sent to the given email address."
+          );
+          navigate("/");
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -74,11 +71,13 @@ export default function Login() {
   }, [submitStatus]);
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>User Login</h2>
+    <div className="forgot-password-container">
+      <form className="forgot-password-form" onSubmit={handleSubmit}>
+        <h2>Forgot Password</h2>
         <p>
-          Welcome back! Sign in and let's make some productivity magic happen!
+          Enter the email address of the account
+          <br />
+          to get a reset link.
         </p>
         <input
           type="email"
@@ -92,33 +91,19 @@ export default function Login() {
         {errors.emailError && (
           <p className="form-error-msg">{errors.emailError}</p>
         )}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          required={true}
-          onChange={handleChange}
-        />
-        <div className="login-options-div">
+
+        <div className="signup-options-div">
           <p>
-            Having trouble signing in?{" "}
+            Remembered your password?{" "}
             <span>
-              <Link className="signup-link" to={"/forgotPassword"}>
-                Forgot Password
-              </Link>
-            </span>
-          </p>
-          <p>
-            Don't have an account?{" "}
-            <span>
-              <Link className="signup-link" to={"/register"}>
-                Signup
+              <Link className="login-link" to={"/login"}>
+                Login
               </Link>
             </span>
           </p>
         </div>
-        <button type="submit">Login</button>
+
+        <button type="submit">Send Link</button>
       </form>
     </div>
   );
