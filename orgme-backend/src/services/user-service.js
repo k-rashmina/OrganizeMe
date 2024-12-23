@@ -112,11 +112,11 @@ const forgotPasswordService = async (user, resetUrl) => {
 
     const message = `
           <p>Hi ${user.firstName},</p>
-          <p>We received a request to reset your password for your OrganizeMe account. If you made this request, please click the link below to reset your password:</p><br><br>
+          <p>We received a request to reset your password for your OrganizeMe account. If you made this request, please click the link below to reset your password:</p><br>
           <a href="${resetUrl}${resetToken}">${resetUrl}${resetToken}</a><br><br>
           <p>For security purposes, this link will expire in 10 minutes. If you did not request a password reset, you can safely ignore this email—your password will remain unchanged.</p>
           <p>If you have any questions or need further assistance, feel free to contact our support team at <strong>${process.env.EMAIL_USER}</strong>.</p>
-          <p>Thank you,<br><strong>The OrganizeMe Team</strong></p>
+          <p>Thank you,<br><strong>OrganizeMe Team</strong></p>
       `;
     const subject = "Reset Your Password for OrganizeMe";
 
