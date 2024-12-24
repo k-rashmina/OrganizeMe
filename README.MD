@@ -65,6 +65,7 @@ Clone down the repository and switch to the OrganizeMe directory.
 2. Set up environment variables:
    Create a .env file in the root of the orgme-backend folder and add the following:
 
+```bash
 MONGODB_URI = your_mongodb_connection_string
 
 ACCESS_TOKEN_SECRET=your_jwt_secret_key
@@ -74,6 +75,7 @@ EMAIL_PASS = your_email_app_password
 
 3. Start development servers:
    Start both frontend and backend servers by typing below command
+   ```bash
    npm start
 
 4. Visit the app:
