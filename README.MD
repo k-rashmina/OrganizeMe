@@ -70,7 +70,7 @@ MONGODB_URI = your_mongodb_connection_string
 ACCESS_TOKEN_SECRET=your_jwt_secret_key
 EMAIL_USER = your_email
 EMAIL_PASS = your_email_app_password
-
+---
 3. Start development servers:
    Start both frontend and backend servers by typing below command
    ```bash
