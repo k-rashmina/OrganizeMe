@@ -34,8 +34,15 @@ export default function Dashboard() {
     dueDate: "",
     isCompleted: false,
     userId: "",
-    priority: "",
+    priority: "low",
   });
+
+  const [highlightTodayTasks, setHighlightTodayTasks] = useState(false);
+
+  const handleHighlightEvent = () => {
+    setHighlightTodayTasks(!highlightTodayTasks);
+    setTaskGetterTrigger(!taskGetterTrigger);
+  };
 
   const handleChange = (e) => {
     setUpdatingTask({
@@ -172,6 +179,12 @@ export default function Dashboard() {
           <div className="header-icon">Icon 3</div>
         </header>
       </center>
+      <button
+        className={highlightTodayTasks ? "enabled-button" : "disbled-button"}
+        onClick={handleHighlightEvent}
+      >
+        Highlight Today's Tasks
+      </button>
       <FilterForm onSearch={getTasks} />
 
       {tasks && (
@@ -181,6 +194,7 @@ export default function Dashboard() {
           getUpdatingTask={getUpdatingTask}
           deleteTask={deleteTask}
           showNewTaskModal={showNewTaskModal}
+          highlightTodayTasks={highlightTodayTasks}
         />
       )}
 
