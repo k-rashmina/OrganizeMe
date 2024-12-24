@@ -79,13 +79,3 @@ EMAIL_PASS = your_email_app_password
    http://localhost:5173/
 
 ## Screens
-
-![Screenshot_24-12-2024_231215_localhost](https://github.com/user-attachments/assets/7a8365bf-5eb0-4489-9463-91e3c1f6f421)
-
-![Screenshot_24-12-2024_231320_localhost](https://github.com/user-attachments/assets/3e4e66f1-8bd1-4f69-a2ae-93f53d078541)
-
-![Screenshot_24-12-2024_231448_localhost](https://github.com/user-attachments/assets/8bd26846-351a-4210-81fd-f1b2b8ab1a66)
-
-![Screenshot_24-12-2024_231519_localhost](https://github.com/user-attachments/assets/ef983a66-109d-437d-a0b6-efa1c441d31d)
-
-![Screenshot_24-12-2024_231714_localhost](https://github.com/user-attachments/assets/b7553ef2-401a-4039-88af-b8fd646ddad0)
