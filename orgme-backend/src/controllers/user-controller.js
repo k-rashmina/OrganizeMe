@@ -143,7 +143,15 @@ const updateUserController = async (req, res) => {
 };
 
 const changePasswordController = async (req, res) => {
-  res.sendStatus(await changePasswordService(email, oldPass, newPass));
+  const { email } = req.user;
+  const { oldPass, newPass } = req.body;
+
+  const status = await changePasswordService(email, oldPass, newPass);
+
+  if (status === 401)
+    return res.status(status).json({ message: "Invalid Password" });
+
+  return res.status(status).json({ message: "Password Change Successful" });
 };
 
 module.exports = {

@@ -1,5 +1,6 @@
 import React from "react";
 import { IoPencilSharp } from "react-icons/io5";
+import { isToday } from "date-fns";
 
 export default function TaskTable({
   tasks,
@@ -7,7 +8,12 @@ export default function TaskTable({
   getUpdatingTask,
   deleteTask,
   showNewTaskModal,
+  highlightTodayTasks,
 }) {
+  // const testDate = "2024-12-26T10:00:00.000+00:00";
+  // const result = isToday(new Date(testDate));
+  // console.log(result);
+
   return (
     <div className="task-list-container">
       <div className="task-list-header">
@@ -23,7 +29,14 @@ export default function TaskTable({
       </div>
       <div className="task-list-body">
         {tasks.map((task, index) => (
-          <div key={index} className="task-list-row">
+          <div
+            key={index}
+            className={
+              highlightTodayTasks && isToday(new Date(task.dueDate))
+                ? "task-list-row-highlighted"
+                : "task-list-row"
+            }
+          >
             <div className="task-list-item">{task.title}</div>
             <div className="task-list-item">{task.description}</div>
             <div className="task-list-item">
