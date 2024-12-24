@@ -8,7 +8,7 @@ const {
   changePasswordService,
 } = require("../services/user-service");
 
-const frontendPort = 5173;
+const frontendPort = process.env.FRONTEND_PORT;
 const frontendlink = `http://localhost:${frontendPort}/resetPassword/`;
 
 /**
