@@ -59,6 +59,7 @@ Clone down the repository and switch to the OrganizeMe directory.
 
 1. Install modules:
    switch to both orgme-frontend and orgme-backend, and install the npm packages using below command
+   ```bash
    npm install
 
 2. Set up environment variables:
