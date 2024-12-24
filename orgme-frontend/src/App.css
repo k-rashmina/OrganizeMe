@@ -17,6 +17,51 @@ body {
   src: url(./assets/Poppins-Regular.ttf);
 }
 
+/* Landing Page Styles */
+
+.landing-bg {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url(./assets/bg-2.jpg);
+  background-size: contain;
+}
+
+.page-title {
+  color: var(--accent1);
+  font-size: 96px;
+}
+
+.slogan {
+  color: var(--accent2);
+  font-size: 40px;
+  margin: 0;
+}
+
+.start-button {
+  /* width: 100%; */
+  height: 10vh;
+  padding: 12px;
+  margin-top: 20px;
+  border: 2px solid var(--accent1);
+  border-radius: 10px;
+  background-color: var(--accent1);
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.start-button:hover {
+  background-color: var(--secondary);
+  border: 2px solid var(--accent1);
+  color: var(--accent1);
+}
+
 /* Registration and Login Page Styles */
 .signup-container,
 .login-container,
@@ -209,6 +254,41 @@ body {
   margin-top: 20px;
 }
 
+.disbled-button {
+  background-color: var(--secondary);
+  border: 1px solid var(--accent1);
+  color: var(--accent1);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.disbled-button:hover {
+  background-color: var(--accent1);
+  color: var(--primary);
+  border: 1px solid var(--accent1);
+}
+
+.enabled-button {
+  background-color: var(--accent1);
+  color: var(--primary);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* .enabled-button:hover {
+  background-color: var(--secondary);
+  color: var(--accent1);
+  border: 1px solid var(--accent1);
+} */
+
 /* Task Table Component Styles */
 .task-list-container {
   position: absolute;
@@ -232,7 +312,8 @@ body {
 }
 
 .task-list-header,
-.task-list-row {
+.task-list-row,
+.task-list-row-highlighted {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
@@ -254,16 +335,27 @@ body {
   border-top-right-radius: 20px;
   font-size: 14px;
   box-shadow: 0px 16px 40px 2px rgba(0, 0, 0, 0.2);
+  color: var(--accent2);
 }
 
 .task-list-item {
-  color: var(--accent2);
   padding: 10px;
 }
 
 .task-list-row input[type="checkbox"] {
   transform: scale(1.5);
   margin: auto;
+}
+
+.task-list-row-highlighted {
+  background-color: var(--accent1);
+  color: var(--primary);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 14px;
+  box-shadow: 0px 16px 40px 2px rgba(0, 0, 0, 0.2);
 }
 
 .edit-button {
@@ -313,7 +405,7 @@ body {
   background-color: var(--secondary);
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
   max-width: 70%;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-bottom: 5px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;

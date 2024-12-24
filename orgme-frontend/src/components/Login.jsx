@@ -45,7 +45,6 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
 
     if (!errors.emailError) {
       setSubmitStatus(true);
@@ -62,6 +61,9 @@ export default function Login() {
         .then((res) => {
           // console.log("accessToken", res.data.accessToken);
           if (res.data.accessToken) {
+            if (localStorage.getItem("accessToken")) {
+              localStorage.removeItem("accessToken");
+            }
             localStorage.setItem("accessToken", res.data.accessToken);
             navigate("/dashboard");
           }
