@@ -1,7 +1,13 @@
 import React from "react";
 import { IoPencilSharp } from "react-icons/io5";
 
-export default function TaskTable({ tasks }) {
+export default function TaskTable({
+  tasks,
+  showModal,
+  getUpdatingTask,
+  deleteTask,
+  showNewTaskModal,
+}) {
   return (
     <div className="task-list-container">
       <div className="task-list-header">
@@ -11,6 +17,9 @@ export default function TaskTable({ tasks }) {
         <div className="task-header-item">Due Time</div>
         <div className="task-header-item">Priority</div>
         <div className="task-header-item">Created at</div>
+        <button className="new-task-button" onClick={showNewTaskModal}>
+          New Task ➕
+        </button>
       </div>
       <div className="task-list-body">
         {tasks.map((task, index) => (
@@ -31,8 +40,17 @@ export default function TaskTable({ tasks }) {
                 checked={task.isCompleted}
                 onChange={() => {}}
               />
-              <button className="edit-button" />
-              <button className="delete-button" />
+              <button
+                className="edit-button"
+                onClick={() => {
+                  showModal();
+                  getUpdatingTask(task);
+                }}
+              />
+              <button
+                onClick={() => deleteTask(task._id)}
+                className="delete-button"
+              />
             </div>
           </div>
         ))}

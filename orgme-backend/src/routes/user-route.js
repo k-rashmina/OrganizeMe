@@ -6,6 +6,7 @@ const {
   forgotPasswordController,
   resetPasswordController,
   updateUserController,
+  changePasswordController,
 } = require("../controllers/user-controller");
 const authenticateToken = require("../middleware/authenticate-token");
 
@@ -17,5 +18,6 @@ router.post("/login", userLogin);
 router.post("/forgotPassword", forgotPasswordController);
 router.patch("/resetPassword/:token", resetPasswordController);
 router.put("/", updateUserController);
+router.put("/changePassword", authenticateToken, changePasswordController);
 
 module.exports = router;

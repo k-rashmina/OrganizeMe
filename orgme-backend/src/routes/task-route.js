@@ -10,7 +10,7 @@ const authenticateToken = require("../middleware/authenticate-token");
 const router = express.Router();
 
 router.get("/", authenticateToken, getAllTasksController);
-router.post("/", createTaskController);
+router.post("/", authenticateToken, createTaskController);
 router.put("/", updateTaskController);
 router.delete("/:taskId", deleteTaskController);
 

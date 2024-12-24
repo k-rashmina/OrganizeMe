@@ -4,6 +4,7 @@ const {
   getUserCredentials,
   getUserByResetToken,
   updateUserDetails,
+  changePassword,
 } = require("../data-access/user-db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -169,10 +170,26 @@ const resetPasswordService = async (token, passwords) => {
 const updateUserService = async (user) => {
   try {
     return await updateUserDetails(user);
-
-    return up;
   } catch (e) {
     console.log(e.message);
+  }
+};
+
+const changePasswordService = async (userEmail, oldPass, newPass) => {
+  const user = await getUserCredentials(userEmail);
+
+  if (!user) {
+    return 400;
+  }
+
+  const { password } = user;
+
+  if (await bcrypt.compare(oldPass, password)) {
+    const newPassword = await createPasswordHash(newPass);
+    await changePassword(user._id, newPassword);
+    return 200;
+  } else {
+    return 401;
   }
 };
 
@@ -183,4 +200,5 @@ module.exports = {
   forgotPasswordService,
   resetPasswordService,
   updateUserService,
+  changePasswordService,
 };

@@ -5,6 +5,7 @@ const {
   forgotPasswordService,
   resetPasswordService,
   updateUserService,
+  changePasswordService,
 } = require("../services/user-service");
 
 const frontendPort = 5173;
@@ -141,6 +142,10 @@ const updateUserController = async (req, res) => {
   }
 };
 
+const changePasswordController = async (req, res) => {
+  res.sendStatus(await changePasswordService(email, oldPass, newPass));
+};
+
 module.exports = {
   getUserController,
   createUserController,
@@ -148,4 +153,5 @@ module.exports = {
   forgotPasswordController,
   resetPasswordController,
   updateUserController,
+  changePasswordController,
 };

@@ -52,10 +52,19 @@ const getUserByResetToken = async (token) => {
   }
 };
 
-//function for getting a user credentials
+//function for updating user details
 const updateUserDetails = async (user) => {
   try {
     return await User.findByIdAndUpdate(user._id, user);
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+//function for changing user password
+const changePassword = async (userId, newPass) => {
+  try {
+    return await User.findByIdAndUpdate(userId, { password: newPass });
   } catch (err) {
     console.log(err.message);
   }
@@ -67,4 +76,5 @@ module.exports = {
   getUserCredentials,
   getUserByResetToken,
   updateUserDetails,
+  changePassword,
 };

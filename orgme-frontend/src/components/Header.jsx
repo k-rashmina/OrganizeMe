@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo1.png";
 
-export default function Header() {
+export default function Header({ buttonName, buttonLink }) {
   const navigate = useNavigate();
 
   const logoutUser = () => {
@@ -20,9 +20,9 @@ export default function Header() {
       <div className="header-nav-div">
         <button
           className="filter-form-button"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate(`${buttonLink}`)}
         >
-          Profile
+          {buttonName}
         </button>
 
         <button className="filter-form-button" onClick={logoutUser}>

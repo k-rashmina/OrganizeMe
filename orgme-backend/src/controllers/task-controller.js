@@ -33,7 +33,9 @@ const getAllTasksController = async (req, res) => {
  */
 const createTaskController = async (req, res) => {
   try {
+    const userID = req.user._id;
     const task = req.body;
+    task.userId = userID;
     const result = await createTaskService(task);
 
     res.send(result);
