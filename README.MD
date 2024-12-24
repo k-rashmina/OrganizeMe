@@ -78,6 +78,7 @@ EMAIL_PASS = your_email_app_password
    ```bash
    npm start
 
+
 4. Visit the app:
    http://localhost:5173/
 
