@@ -79,3 +79,18 @@ EMAIL_PASS = your_email_app_password
    http://localhost:5173/
 
 ## Screens
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20030951.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031035.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031115.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031137.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031226.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031254.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031334.png?raw=true)
+
+![image alt](https://github.com/k-rashmina/OrganizeMe/blob/main/orgme-frontend/public/Screenshot%202024-12-25%20031415.png?raw=true)
