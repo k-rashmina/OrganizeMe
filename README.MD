@@ -79,13 +79,3 @@ EMAIL_PASS = your_email_app_password
    http://localhost:5173/
 
 ## Screens
-
-![Screenshot_24-12-2024_231215_localhost](c:\Users\User\Desktop\New folder\Screenshot 2024-12-25 030951.png)
-
-![Screenshot_24-12-2024_231320_localhost]()
-
-![Screenshot_24-12-2024_231448_localhost]()
-
-![Screenshot_24-12-2024_231519_localhost]()
-
-![Screenshot_24-12-2024_231714_localhost]()
