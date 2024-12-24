@@ -67,9 +67,7 @@ Clone down the repository and switch to the OrganizeMe directory.
 
 ```bash
 MONGODB_URI = your_mongodb_connection_string
-
 ACCESS_TOKEN_SECRET=your_jwt_secret_key
-
 EMAIL_USER = your_email
 EMAIL_PASS = your_email_app_password
 
@@ -77,7 +75,6 @@ EMAIL_PASS = your_email_app_password
    Start both frontend and backend servers by typing below command
    ```bash
    npm start
-
 
 4. Visit the app:
    http://localhost:5173/
