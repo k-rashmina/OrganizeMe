@@ -49,20 +49,20 @@ The Task Management System is a full-stack web application designed to help user
 
 ## Installation
 
-## Project Setup
+1. Project Setup
 
 You will need node and npm installed globally on your machine.
 
-### Clone OrganizeMe
+2. Clone OrganizeMe
 
 Clone down the repository and switch to the OrganizeMe directory.
 
-1. Install modules:
+3. Install modules:
    switch to both orgme-frontend and orgme-backend, and install the npm packages using below command
    ```bash
    npm install
 
-2. Set up environment variables:
+4. Set up environment variables:
    Create a .env file in the root of the orgme-backend folder and add the following:
 
    ```bash
@@ -71,12 +71,12 @@ Clone down the repository and switch to the OrganizeMe directory.
    EMAIL_USER = your_email
    EMAIL_PASS = your_email_app_password
 
-3. Start development servers:
+5. Start development servers:
    Start both frontend and backend servers by typing below command
    ```bash
    npm start
 
-4. Visit the app:
+6. Visit the app:
    http://localhost:5173/
 
 ## Screens
