@@ -70,6 +70,7 @@ Clone down the repository and switch to the OrganizeMe directory.
    ACCESS_TOKEN_SECRET=your_jwt_secret_key
    EMAIL_USER = your_email
    EMAIL_PASS = your_email_app_password
+   FRONTEND_PORT = your_frontend_port_number
 
 5. Start development servers:
    Start both frontend and backend servers by typing below command
